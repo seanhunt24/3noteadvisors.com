@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>3note advisors</title>
+  <meta name="description" content="3note advisors — A single family office focused on long-term value creation across public and private markets.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    :root {
+      --olive: #5a6b2f;
+      --olive-dark: #3d4a1f;
+      --olive-light: #7a8c4e;
+      --cream: #f5f2eb;
+      --cream-dark: #ebe7dd;
+      --warm-white: #fafaf7;
+      --text-primary: #2c2c2c;
+      --text-secondary: #5a5a5a;
+      --text-light: #8a8a8a;
+      --gold-accent: #b8a472;
+    }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      color: var(--text-primary);
+      background: var(--warm-white);
+      line-height: 1.7;
+      -webkit-font-smoothing: antialiased;
+    }
+    nav {
+      position: fixed; top: 0; width: 100%; z-index: 100;
+      background: rgba(250, 250, 247, 0.92);
+      backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(90, 107, 47, 0.08);
+      transition: box-shadow 0.3s;
+    }
+    nav.scrolled { box-shadow: 0 1px 20px rgba(0,0,0,0.06); }
+    .nav-inner {
+      max-width: 1100px; margin: 0 auto; padding: 18px 40px;
+      display: flex; justify-content: space-between; align-items: center;
+    }
+    .nav-logo { display: flex; align-items: center; gap: 12px; text-decoration: none; }
+    .nav-logo svg { height: 32px; width: auto; }
+    .nav-links { display: flex; gap: 36px; list-style: none; }
+    .nav-links a {
+      text-decoration: none; color: var(--text-secondary);
+      font-size: 0.85rem; font-weight: 500; letter-spacing: 0.04em;
+      text-transform: uppercase; transition: color 0.25s;
+    }
+    .nav-links a:hover { color: var(--olive); }
+    .hero {
+      min-height: 100vh; display: flex; align-items: center; justify-content: center;
+      text-align: center; background: var(--cream); padding: 120px 40px 80px;
+      position: relative; overflow: hidden;
+    }
+    .hero::before {
+      content: ''; position: absolute; top: -50%; right: -20%;
+      width: 700px; height: 700px;
+      background: radial-gradient(circle, rgba(90,107,47,0.04) 0%, transparent 70%);
+      border-radius: 50%;
+    }
+    .hero-content { position: relative; z-index: 1; }
+    .hero-logo { margin-bottom: 40px; }
+    .hero-logo svg { height: 80px; width: auto; }
+    .hero-tagline {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: 1.5rem; font-weight: 400; color: var(--text-secondary);
+      margin-bottom: 16px; letter-spacing: 0.01em;
+    }
+    .hero-sub {
+      font-size: 0.95rem; color: var(--text-light);
+      max-width: 480px; margin: 0 auto; line-height: 1.8;
+    }
+    .hero-divider { width: 48px; height: 2px; background: var(--olive-light); margin: 32px auto; opacity: 0.5; }
+    .hero-cta {
+      display: inline-block; margin-top: 20px; padding: 14px 36px;
+      border: 1px solid var(--olive); color: var(--olive); text-decoration: none;
+      font-size: 0.82rem; font-weight: 500; letter-spacing: 0.08em;
+      text-transform: uppercase; transition: all 0.3s;
+    }
+    .hero-cta:hover { background: var(--olive); color: #fff; }
+    section { padding: 100px 40px; }
+    .container { max-width: 900px; margin: 0 auto; }
+    .section-label {
+      font-size: 0.72rem; font-weight: 600; letter-spacing: 0.16em;
+      text-transform: uppercase; color: var(--olive-light); margin-bottom: 12px;
+    }
+    .section-title {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: 2rem; font-weight: 400; color: var(--text-primary); margin-bottom: 32px;
+    }
+    .section-text { font-size: 1.02rem; color: var(--text-secondary); line-height: 1.85; max-width: 640px; }
+    .about { background: var(--warm-white); }
+    .approach { background: var(--cream); }
+    .approach-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 48px; margin-top: 48px; }
+    .approach-item h3 {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: 1.15rem; font-weight: 500; color: var(--text-primary); margin-bottom: 12px;
+    }
+    .approach-item p { font-size: 0.9rem; color: var(--text-secondary); line-height: 1.75; }
+    .approach-item .icon-line { width: 28px; height: 2px; background: var(--olive); margin-bottom: 20px; opacity: 0.6; }
+    .team { background: var(--warm-white); }
+    .team-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 56px; margin-top: 48px; }
+    .team-card { padding: 40px; background: var(--cream); border-radius: 2px; }
+    .team-card h3 { font-family: 'Playfair Display', Georgia, serif; font-size: 1.35rem; font-weight: 500; margin-bottom: 4px; }
+    .team-card .role { font-size: 0.8rem; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: var(--olive); margin-bottom: 16px; }
+    .team-card p { font-size: 0.92rem; color: var(--text-secondary); line-height: 1.75; }
+    .contact { background: var(--olive-dark); color: #fff; text-align: center; }
+    .contact .section-label { color: var(--gold-accent); }
+    .contact .section-title { color: #fff; }
+    .contact .section-text { color: rgba(255,255,255,0.7); margin: 0 auto 36px; }
+    .contact-email {
+      font-family: 'Playfair Display', Georgia, serif; font-size: 1.3rem;
+      color: #fff; text-decoration: none; border-bottom: 1px solid rgba(255,255,255,0.3);
+      padding-bottom: 2px; transition: border-color 0.3s;
+    }
+    .contact-email:hover { border-color: var(--gold-accent); }
+    footer { background: var(--olive-dark); border-top: 1px solid rgba(255,255,255,0.08); padding: 28px 40px; text-align: center; }
+    footer p { font-size: 0.75rem; color: rgba(255,255,255,0.35); letter-spacing: 0.04em; }
+    .fade-in { opacity: 0; transform: translateY(24px); transition: opacity 0.7s ease, transform 0.7s ease; }
+    .fade-in.visible { opacity: 1; transform: translateY(0); }
+    @media (max-width: 768px) {
+      .nav-inner { padding: 16px 24px; } .nav-links { gap: 20px; }
+      .nav-links a { font-size: 0.78rem; } section { padding: 72px 24px; }
+      .hero { padding: 100px 24px 60px; min-height: 90vh; }
+      .hero-tagline { font-size: 1.25rem; } .hero-logo svg { height: 60px; }
+      .section-title { font-size: 1.6rem; }
+      .approach-grid { grid-template-columns: 1fr; gap: 36px; }
+      .team-grid { grid-template-columns: 1fr; gap: 32px; }
+    }
+    @media (max-width: 480px) { .nav-links { display: none; } .hero-tagline { font-size: 1.1rem; } }
+  </style>
+</head>
+<body>
+  <nav id="nav"><div class="nav-inner">
+    <a href="#" class="nav-logo">
+      <svg viewBox="0 0 200 50" xmlns="http://www.w3.org/2000/svg"><g fill="#5a6b2f">
+        <rect x="0" y="4" width="28" height="2.5" rx="1"/><rect x="0" y="11" width="28" height="2.5" rx="1"/>
+        <rect x="0" y="18" width="28" height="2.5" rx="1"/><rect x="0" y="25" width="28" height="2.5" rx="1"/>
+        <rect x="0" y="32" width="22" height="2.5" rx="1"/>
+        <text x="36" y="28" font-family="'Playfair Display', Georgia, serif" font-size="26" font-weight="500">3note</text>
+        <text x="36" y="44" font-family="'Inter', sans-serif" font-size="13" font-weight="300" letter-spacing="3">advisors</text>
+      </g></svg>
+    </a>
+    <ul class="nav-links">
+      <li><a href="#about">About</a></li><li><a href="#approach">Approach</a></li>
+      <li><a href="#team">Team</a></li><li><a href="#contact">Contact</a></li>
+    </ul>
+  </div></nav>
+
+  <section class="hero"><div class="hero-content">
+    <div class="hero-logo">
+      <svg viewBox="0 0 200 58" xmlns="http://www.w3.org/2000/svg"><g fill="#5a6b2f">
+        <rect x="60" y="2" width="36" height="3" rx="1.5"/><rect x="60" y="10" width="36" height="3" rx="1.5"/>
+        <rect x="60" y="18" width="36" height="3" rx="1.5"/><rect x="60" y="26" width="36" height="3" rx="1.5"/>
+        <rect x="60" y="34" width="28" height="3" rx="1.5"/>
+        <text x="100" y="30" font-family="'Playfair Display', Georgia, serif" font-size="32" font-weight="500" text-anchor="start">3note</text>
+        <text x="100" y="50" font-family="'Inter', sans-serif" font-size="15" font-weight="300" letter-spacing="4" text-anchor="start">advisors</text>
+      </g></svg>
+    </div>
+    <div class="hero-divider"></div>
+    <p class="hero-tagline">Long-term value creation across<br>public and private markets</p>
+    <p class="hero-sub">A single family office pursuing differentiated opportunities with patience, discipline, and conviction.</p>
+    <a href="#about" class="hero-cta">Learn More</a>
+  </div></section>
+
+  <section class="about" id="about"><div class="container fade-in">
+    <p class="section-label">About</p>
+    <h2 class="section-title">Who We Are</h2>
+    <p class="section-text">3note advisors is a single family office dedicated to long-term capital appreciation. We manage a diversified portfolio spanning public equities, digital assets, private credit, venture capital, and private equity — always with an emphasis on rigorous analysis and patient capital deployment.</p>
+    <br>
+    <p class="section-text">Our approach blends institutional discipline with the flexibility and long-term horizon that a family office affords. We are not constrained by quarterly benchmarks or short-term thinking — we invest with conviction where we see enduring value.</p>
+  </div></section>
+
+  <section class="approach" id="approach"><div class="container fade-in">
+    <p class="section-label">Approach</p>
+    <h2 class="section-title">How We Invest</h2>
+    <div class="approach-grid">
+      <div class="approach-item"><div class="icon-line"></div><h3>Public Markets</h3><p>A liquid book of public equities and digital assets, managed with a focus on alpha generation and disciplined risk management.</p></div>
+      <div class="approach-item"><div class="icon-line"></div><h3>Private Markets</h3><p>Selective allocations to venture capital, private equity, and private credit, seeking asymmetric returns with strong downside protection.</p></div>
+      <div class="approach-item"><div class="icon-line"></div><h3>Long-Term Horizon</h3><p>Our permanent capital structure allows us to underwrite opportunities that require patience, avoiding the constraints of traditional fund cycles.</p></div>
+    </div>
+  </div></section>
+
+  <section class="team" id="team"><div class="container fade-in">
+    <p class="section-label">Team</p>
+    <h2 class="section-title">Our People</h2>
+    <div class="team-grid">
+      <div class="team-card"><h3>Joel Gantcher</h3><p class="role">Chief Investment Officer</p><p>Joel oversees all investment strategy and portfolio management at 3note advisors, bringing deep expertise across both public and private markets.</p></div>
+      <div class="team-card"><h3>Sean Hunt</h3><p class="role">Analyst</p><p>Sean supports investment research and analysis across the portfolio, with a focus on sourcing, underwriting, and monitoring opportunities.</p></div>
+    </div>
+  </div></section>
+
+  <section class="contact" id="contact"><div class="container fade-in">
+    <p class="section-label">Contact</p>
+    <h2 class="section-title">Get In Touch</h2>
+    <p class="section-text">For inquiries, please reach out to us directly.</p>
+    <a class="contact-email" href="mailto:info@3noteadvisors.com">info@3noteadvisors.com</a>
+  </div></section>
+
+  <footer><p>&copy; 2026 3note advisors. All rights reserved.</p></footer>
+
+  <script>
+    const nav = document.getElementById('nav');
+    window.addEventListener('scroll', () => { nav.classList.toggle('scrolled', window.scrollY > 20); });
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('visible'); });
+    }, { threshold: 0.15 });
+    document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+  </script>
+</body>
+</html>
